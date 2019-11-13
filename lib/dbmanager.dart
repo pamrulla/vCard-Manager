@@ -1,0 +1,49 @@
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:vcard_manager/vcard_data.dart';
+
+class DBManager {
+  static final table = 'vcard';
+  DBManager._privateConstructor();
+  static DBManager instance = DBManager._privateConstructor();
+
+  static Database _database;
+  Future<Database> get database async {
+    if (_database != null) return _database;
+    // lazily instantiate the db the first time it is accessed
+    _database = await _initDatabase();
+    return _database;
+  }
+
+  _initDatabase() async {
+    return await openDatabase(
+      join(await getDatabasesPath(), 'vcardmanager_database.db'),
+      onCreate: (db, version) {
+        return db.execute(
+          "CREATE TABLE $table(id INTEGER PRIMARY KEY, name TEXT, "
+          "designation TEXT, phone TEXT, email TEXT, address TEXT, image TEXT)",
+        );
+      },
+      version: 1,
+    );
+  }
+
+  void insert(VCardData data) async {
+    final Database db = await database;
+    await db.insert(
+      table,
+      data.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<List<Map<String, dynamic>>> queryAllRows() async {
+    Database db = await instance.database;
+    return await db.query(table);
+  }
+
+  void close() async {
+    final Database db = await database;
+    db.close();
+  }
+}

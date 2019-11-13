@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vcard_manager/CustomTextFromField.dart';
 import 'package:vcard_manager/Utility.dart';
-import 'package:vcard_manager/dbmanager.dart';
 import 'package:vcard_manager/vcardviewscreen.dart';
 
 import 'vcard_data.dart';
@@ -59,9 +58,9 @@ class _VCardEditScreenState extends State<VCardEditScreen> {
 
   @override
   void deactivate() {
-    if (!Navigator.canPop(context)) {
-      DBManager.instance.close();
-    }
+    //if (!Navigator.canPop(context)) {
+    //  DBManager.instance.close();
+    //}
     super.deactivate();
   }
 

@@ -18,14 +18,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
     getData();
   }
 
-  @override
-  void deactivate() {
-    if (!Navigator.canPop(context)) {
-      DBManager.instance.close();
-    }
-    super.deactivate();
-  }
-
   void getData() async {
     List<Map<String, dynamic>> maps = await DBManager.instance.queryAllRows();
     if (maps.length != 0) {

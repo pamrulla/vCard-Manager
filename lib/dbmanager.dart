@@ -1,4 +1,4 @@
-import 'package:path/path.dart';
+import 'package:path/path.dart' as p;
 import 'package:sqflite/sqflite.dart';
 import 'package:vcard_manager/vcard_data.dart';
 
@@ -16,8 +16,10 @@ class DBManager {
   }
 
   _initDatabase() async {
+    var pathName = await getDatabasesPath();
+    String pn = p.join(pathName, 'vcardmanager_database.db');
     return await openDatabase(
-      join(await getDatabasesPath(), 'vcardmanager_database.db'),
+      pn,
       onCreate: (db, version) {
         return db.execute(
           "CREATE TABLE $table(id INTEGER PRIMARY KEY, name TEXT, "
@@ -42,8 +44,8 @@ class DBManager {
     return await db.query(table);
   }
 
-  void close() async {
-    final Database db = await database;
-    db.close();
-  }
+  //void close() async {
+  //  final Database db = await database;
+  //  db.close();
+  //}
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vcard_manager/Utility.dart';
 import 'package:vcard_manager/constants.dart';
-import 'package:vcard_manager/dbmanager.dart';
 import 'package:vcard_manager/vcard_data.dart';
 import 'package:vcard_manager/vcardeditscreen.dart';
 
@@ -24,9 +23,9 @@ class _VCardViewScreenState extends State<VCardViewScreen> {
 
   @override
   void deactivate() {
-    if (!Navigator.canPop(context)) {
-      DBManager.instance.close();
-    }
+    //if (!Navigator.canPop(context)) {
+    //  DBManager.instance.close();
+    //}
     super.deactivate();
   }
 
@@ -34,9 +33,6 @@ class _VCardViewScreenState extends State<VCardViewScreen> {
     _data = await Navigator.push(context, MaterialPageRoute(builder: (context) {
       return VCardEditScreen(data: _data);
     }));
-    print("#####################################################");
-    print(_data);
-    print("#####################################################");
     setState(() {});
   }
 

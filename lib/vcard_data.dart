@@ -8,6 +8,7 @@ class VCardData {
   String email = '';
   String address = '';
   String image = '';
+  String sendId = '';
 
   Map<String, dynamic> toMap() {
     return {
@@ -17,7 +18,19 @@ class VCardData {
       'phone': phone,
       'email': email,
       'address': address,
-      'image': image,
+      'image': image
+    };
+  }
+
+  Map<String, dynamic> toMapToShare() {
+    return {
+      'sendId': sendId,
+      'name': name,
+      'designation': designation,
+      'phone': phone,
+      'email': email,
+      'address': address,
+      'image': image
     };
   }
 

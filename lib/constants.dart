@@ -6,3 +6,4 @@ const Color kPrimaryDarkColor = Color(0xff00001b);
 const Color kSecondaryColor = Color(0xff602080);
 const Color kSecondaryLightColor = Color(0xff904eb0);
 const Color kSecondaryDarkColor = Color(0xff310053);
+const String kFirestoreCollectionName = 'cards';

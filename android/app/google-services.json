@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "996165922521",
+    "firebase_url": "https://vcard-manager.firebaseio.com",
+    "project_id": "vcard-manager",
+    "storage_bucket": "vcard-manager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996165922521:android:a36f8ab6d1e70192d058c8",
+        "android_client_info": {
+          "package_name": "com.khanscode.vcard_manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "996165922521-c9o6lpm2aa32vdduc4n82t28hnj9vlso.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUm9NOI0zP-3WgFENecFvEcaNqjZ-LkQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "996165922521-c9o6lpm2aa32vdduc4n82t28hnj9vlso.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

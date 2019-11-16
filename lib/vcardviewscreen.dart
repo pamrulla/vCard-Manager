@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vcard_manager/Utility.dart';
+import 'package:vcard_manager/VCardShareScreen.dart';
 import 'package:vcard_manager/constants.dart';
 import 'package:vcard_manager/vcard_data.dart';
 import 'package:vcard_manager/vcardeditscreen.dart';
@@ -36,6 +37,12 @@ class _VCardViewScreenState extends State<VCardViewScreen> {
     setState(() {});
   }
 
+  void onShare() async {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return VCardShareScreen(data: _data);
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,8 +50,14 @@ class _VCardViewScreenState extends State<VCardViewScreen> {
         title: Text('V-Card'),
         actions: <Widget>[
           IconButton(
+            icon: Icon(Icons.share),
+            onPressed: onShare,
+            iconSize: 40.0,
+          ),
+          IconButton(
             icon: Icon(Icons.mode_edit),
             onPressed: onEdit,
+            iconSize: 40.0,
           )
         ],
       ),

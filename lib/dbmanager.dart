@@ -22,7 +22,7 @@ class DBManager {
       pn,
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE $table(id INTEGER PRIMARY KEY, name TEXT, "
+          "CREATE TABLE $table(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, "
           "designation TEXT, phone TEXT, email TEXT, address TEXT, image TEXT)",
         );
       },

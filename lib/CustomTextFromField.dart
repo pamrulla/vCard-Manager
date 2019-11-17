@@ -14,6 +14,7 @@ class CustomTextFromField extends StatelessWidget {
   final int minLines;
   final int maxLines;
   final ValueChanged<String> onFieldSubmitted;
+  final int maxLength;
 
   CustomTextFromField(
       {@required this.focusNode,
@@ -26,7 +27,8 @@ class CustomTextFromField extends StatelessWidget {
       this.textInputAction,
       this.minLines = 1,
       this.maxLines = 1,
-      this.onFieldSubmitted});
+      this.onFieldSubmitted,
+      this.maxLength});
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +67,7 @@ class CustomTextFromField extends StatelessWidget {
           onSaved: onSaved,
           textInputAction: textInputAction ?? TextInputAction.none,
           onFieldSubmitted: onFieldSubmitted,
+          maxLength: maxLength,
         ),
       ),
     );

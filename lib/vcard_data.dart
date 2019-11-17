@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:vcard_manager/dbmanager.dart';
 
 class VCardData {
@@ -12,7 +13,6 @@ class VCardData {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'name': name,
       'designation': designation,
       'phone': phone,
@@ -60,5 +60,18 @@ class VCardData {
     email = map['email'];
     address = map['address'];
     image = map['image'];
+  }
+
+  void fromDocument(DocumentSnapshot doc) {
+    name = doc['name'];
+    designation = doc['designation'];
+    email = doc['email'];
+    phone = doc['phone'];
+    address = doc['address'];
+    image = doc['image'];
+  }
+
+  bool isEmpty() {
+    return name.isEmpty;
   }
 }

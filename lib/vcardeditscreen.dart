@@ -26,6 +26,7 @@ class _VCardEditScreenState extends State<VCardEditScreen> {
   VCardData _data = VCardData();
   String _imageAsString = '';
   bool _imageChanged = false;
+  bool _isUpdate = false;
 
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   FocusNode _focusNodeName = new FocusNode();
@@ -54,6 +55,7 @@ class _VCardEditScreenState extends State<VCardEditScreen> {
     _designationController.text = _data.designation;
     _nameController.text = _data.name;
     _imageAsString = _data.image;
+    _isUpdate = Navigator.canPop(context);
   }
 
   @override
@@ -70,7 +72,7 @@ class _VCardEditScreenState extends State<VCardEditScreen> {
     if (form.validate()) {
       form.save();
       _data.image = _imageAsString;
-      await _data.save();
+      await _data.save(isUpdate: _isUpdate);
 
       if (Navigator.canPop(context)) {
         Navigator.pop(context, _data);

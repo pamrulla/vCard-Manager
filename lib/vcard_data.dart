@@ -48,8 +48,11 @@ class VCardData {
         "}";
   }
 
-  void save() async {
-    DBManager.instance.insert(this);
+  void save({isUpdate = false}) async {
+    if (isUpdate) {
+    } else {
+      DBManager.instance.insert(this);
+    }
   }
 
   void fromMap(Map<String, dynamic> map) {

@@ -39,6 +39,16 @@ class DBManager {
     );
   }
 
+  void update(VCardData data) async {
+    final Database db = await database;
+    await db.update(
+      table,
+      data.toMap(),
+      where: 'id',
+      whereArgs: [1],
+    );
+  }
+
   Future<List<Map<String, dynamic>>> queryAllRows() async {
     Database db = await instance.database;
     return await db.query(table);

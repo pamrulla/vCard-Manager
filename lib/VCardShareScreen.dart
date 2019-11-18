@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:random_string/random_string.dart';
 import 'package:vcard_manager/CardView.dart';
 import 'package:vcard_manager/CustomTextFromField.dart';
 import 'package:vcard_manager/FullScreenLoadingWidget.dart';
 import 'package:vcard_manager/constants.dart';
-import 'package:vcard_manager/dbmanager.dart';
 import 'package:vcard_manager/vcard_data.dart';
 
 class VCardShareScreen extends StatefulWidget {
@@ -42,13 +40,14 @@ class _VCardShareScreenState extends State<VCardShareScreen> {
     cleanCollection();
   }
 
-  void cleanCollection() {
-    Firestore.instance
+  void cleanCollection() async {
+    await Firestore.instance
         .collection(kFirestoreCollectionName)
-        .where('sendId', isEqualTo: _otherKey)
+        .where('sendId', isEqualTo: _data.sendId)
         .snapshots()
         .listen((data) {
       data.documents.forEach((doc) {
+        print('clean');
         doc.reference.delete();
       });
     });
@@ -66,16 +65,48 @@ class _VCardShareScreenState extends State<VCardShareScreen> {
     });
   }
 
+  void showAlert() async {
+    await showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('Can\'t download vCard.'),
+                  Text(
+                      'Please check entered key is correct and connected to network.'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Close'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
+  }
+
   void onShare() async {
     Firestore.instance
         .collection(kFirestoreCollectionName)
         .where('sendId', isEqualTo: _otherKey)
         .snapshots()
-        .listen((data) {
-      data.documents.forEach((doc) {
+        .listen((data) async {
+      if (data.documents.length == 0) {
+        await showAlert();
+        return;
+      }
+      data.documents.forEach((doc) async {
         _otherData.fromDocument(doc);
         if (_otherData.isEmpty()) {
-          //TODO display alert box for failed sharing
+          await showAlert();
         } else {
           print(_otherData.geStringFormat());
           setState(() {

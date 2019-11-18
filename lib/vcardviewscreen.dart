@@ -1,9 +1,8 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:vcard_manager/AllCardsViewerScreen.dart';
 import 'package:vcard_manager/CardView.dart';
-import 'package:vcard_manager/Utility.dart';
 import 'package:vcard_manager/VCardShareScreen.dart';
-import 'package:vcard_manager/constants.dart';
 import 'package:vcard_manager/vcard_data.dart';
 import 'package:vcard_manager/vcardeditscreen.dart';
 
@@ -40,9 +39,38 @@ class _VCardViewScreenState extends State<VCardViewScreen> {
   }
 
   void onShare() async {
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return VCardShareScreen(data: _data);
-    }));
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult != ConnectivityResult.none) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return VCardShareScreen(data: _data);
+      }));
+    } else {
+      await showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('No Network connection.'),
+                  Text('Please check your connection before proceeding.'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Close'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vcard_manager/Utility.dart';
 import 'package:vcard_manager/constants.dart';
@@ -26,6 +27,7 @@ class CardView extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Pacifico',
               ),
+              textAlign: TextAlign.center,
             ),
             Text(
               data.designation.toUpperCase(),
@@ -35,6 +37,7 @@ class CardView extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: kSecondaryLightColor,
               ),
+              textAlign: TextAlign.center,
             ),
             SizedBox(
               height: 25.0,

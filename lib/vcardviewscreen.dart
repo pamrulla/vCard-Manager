@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vcard_manager/AllCardsViewerScreen.dart';
 import 'package:vcard_manager/CardView.dart';
 import 'package:vcard_manager/VCardShareScreen.dart';
+import 'package:vcard_manager/adsController.dart';
 import 'package:vcard_manager/vcard_data.dart';
 import 'package:vcard_manager/vcardeditscreen.dart';
 
@@ -21,6 +22,17 @@ class _VCardViewScreenState extends State<VCardViewScreen> {
   void initState() {
     super.initState();
     _data = widget.data;
+    adsController.instance.myBanner
+      ..load()
+      ..show();
+  }
+
+  @override
+  void dispose() {
+    print('dispose');
+    super.dispose();
+    adsController.instance.myBanner.dispose();
+    adsController.instance.myInterstitial.dispose();
   }
 
   @override
@@ -32,6 +44,9 @@ class _VCardViewScreenState extends State<VCardViewScreen> {
   }
 
   void onEdit() async {
+    adsController.instance.myInterstitial
+      ..load()
+      ..show();
     _data = await Navigator.push(context, MaterialPageRoute(builder: (context) {
       return VCardEditScreen(data: _data);
     }));
@@ -39,6 +54,9 @@ class _VCardViewScreenState extends State<VCardViewScreen> {
   }
 
   void onShare() async {
+    adsController.instance.myInterstitial
+      ..load()
+      ..show();
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult != ConnectivityResult.none) {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
